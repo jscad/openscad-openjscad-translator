@@ -1,4 +1,4 @@
-define("ModuleInstantiation", ["Globals", "OpenjscadSolidFactorySingleton", "underscore"], function(Globals, OpenjscadSolidFactorySingleton, _){
+define("ModuleInstantiation", ["Globals", "OpenjscadSolidFactorySingleton"], function(Globals, OpenjscadSolidFactorySingleton){
 
 	function ModuleInstantiation() {
         this.name;

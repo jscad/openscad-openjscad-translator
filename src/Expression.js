@@ -1,4 +1,4 @@
-define("Expression", ["Range", "sylvester", "underscore"], function(Range, Sylvester, _){
+define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
 
 	function Expression(value) {
         this.children = [];

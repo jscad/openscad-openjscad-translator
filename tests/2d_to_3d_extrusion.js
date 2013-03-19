@@ -1,14 +1,14 @@
 var requirejs = require('requirejs');
 
 requirejs.config({
-    baseUrl: '../js/app',
+    baseUrl: '../src',
     paths: {
         lib: '../lib'
     },
     nodeRequire: require
 });
 
-requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support"], 
+requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
     function(fs, assert, parser, Globals, parser_support) {
 
     var filedir = "2d_to_3d_extrusion/";

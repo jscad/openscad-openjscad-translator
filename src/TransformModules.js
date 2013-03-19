@@ -1,4 +1,4 @@
-define("TransformModules", ["Globals", "Context", "underscore"], function(Globals, Context, _){
+define("TransformModules", ["Globals", "Context"], function(Globals, Context){
 
     function TransformModule(factory){
     	var factory = factory;

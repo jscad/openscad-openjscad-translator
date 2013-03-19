@@ -1,4 +1,4 @@
-define("CSGModule", ["Globals", "Context", "underscore"], function(Globals, Context, _){
+define("CSGModule", ["Globals", "Context"], function(Globals, Context){
 
 	function CSGModule(factory, csgOperation){
         this.csgOperation = csgOperation;

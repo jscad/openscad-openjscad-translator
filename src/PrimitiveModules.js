@@ -1,4 +1,4 @@
-define("PrimitiveModules", ["Globals", "Context", "underscore"], function(Globals, Context, _){
+define("PrimitiveModules", ["Globals", "Context"], function(Globals, Context){
 
 	function PrimitiveModule(){};
 

@@ -10,6 +10,8 @@ See: https://npmjs.org/package/openscad-openjscad-translator
 
 ## Usage
 
+### Node
+
     var parser = require('openscad-openjscad-translator')
     var fs = require("fs");
     
@@ -17,3 +19,39 @@ See: https://npmjs.org/package/openscad-openjscad-translator
     var openJSCADResult = parser.parse(openSCADText);
     
     console.log(openJSCADResult);
+
+### Web
+
+    ...
+    <script type="text/javascript" src="../lib/underscore.js"></script>
+    <script type="text/javascript" src="../lib/jquery.js"></script>
+
+    <script src="../dist/web-built.js"></script>
+
+    <script type="text/javascript">
+    $(function(){
+      console.log(openscadOpanJscadParser.parse($('#txt').text()));
+    })
+    </script>
+    ...
+
+Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOpanJscadParser** object will be available.  This has two attributes:
+* **parse** - a function which accepts OpenSCAD text and returns OpenJsCAD text.
+* **parser** - a Jison parser object which can be used for more advanced parsing (e.g. the **parse** method returns the text and the context object, allowing for processing of *use* statements.)
+
+## Build
+
+### Web
+
+    node tools/r.js -o build-web.js
+
+Creates a optimised script (with Almond AMD loader) in the ```dist``` folder.
+
+
+## Develop
+
+### Jison
+
+    ./jison-build.sh
+
+Compiles the Jison lexer/parser to an AMD module in the ```src``` folder called ```openscad-parser.js```.

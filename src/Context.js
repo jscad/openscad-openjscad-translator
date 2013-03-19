@@ -1,4 +1,4 @@
-define("Context", ["Globals", "openscad-parser-support", "underscore"], function(Globals, OpenscadParserSupport, _){
+define("Context", ["Globals", "openscad-parser-support"], function(Globals, OpenscadParserSupport){
     
     function Context(parentContext) {
         this.vars = {};

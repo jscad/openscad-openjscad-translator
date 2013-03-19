@@ -1,4 +1,4 @@
-define(["Module", "Context", "Globals", "FunctionDef", "underscore", "openscad-parser-support"], function(Module, Context, Globals, FunctionDef, _){
+define(["Module", "Context", "Globals", "FunctionDef", "openscad-parser-support"], function(Module, Context, Globals, FunctionDef, support){
 
 
     var currmodule = new Module("root");

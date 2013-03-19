@@ -1,4 +1,4 @@
-define("Module", ["Context", "Globals", "underscore"], function(Context, Globals, _){
+define("Module", ["Context", "Globals"], function(Context, Globals){
 
     function Module(name) {
         this.name = name;
@@ -29,7 +29,6 @@ define("Module", ["Context", "Globals", "underscore"], function(Context, Globals
         context.inst_p = inst;
         context.functions_p = this.functions;
         context.modules_p = this.modules;
-
         _.each(this.assignments_var, function(value, key, list) {
             context.setVariable(key, value.evaluate(context));
         });
