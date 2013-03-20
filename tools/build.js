@@ -1,10 +1,10 @@
 {
     "baseUrl": "src",
     "paths": {
-        "openscadOpanJscadParser": "../web",
+        "openscadOpenJscadParser": "../web",
         "lib": "../lib"
     },
-    "include": ["../../almond", "openscadOpanJscadParser"],
+    "include": ["../../almond", "openscadOpenJscadParser"],
     "exclude": ["../lib/underscore"],
     "out": "web-built.js",
     "wrap": {

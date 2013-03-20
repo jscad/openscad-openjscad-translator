@@ -30,12 +30,12 @@ See: https://npmjs.org/package/openscad-openjscad-translator
 
     <script type="text/javascript">
     $(function(){
-      console.log(openscadOpanJscadParser.parse($('#txt').text()));
+      console.log(openscadOpenJscadParser.parse($('#txt').text()));
     })
     </script>
     ...
 
-Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOpanJscadParser** object will be available.  This has two attributes:
+Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOpenJscadParser** object will be available.  This has two attributes:
 * **parse** - a function which accepts OpenSCAD text and returns OpenJsCAD text.
 * **parser** - a Jison parser object which can be used for more advanced parsing (e.g. the **parse** method returns the text and the context object, allowing for processing of *use* statements.)
 

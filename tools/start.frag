@@ -4,6 +4,6 @@
         define(['underscore'], factory);
     } else {
         // Browser globals
-        root.openscadOpanJscadParser = factory(root._);
+        root.openscadOpenJscadParser = factory(root._);
     }
 }(this, function (_) {
