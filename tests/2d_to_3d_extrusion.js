@@ -13,10 +13,6 @@ requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-suppor
 
     var filedir = "2d_to_3d_extrusion/";
 
-    logMessage = function(msg){
-        console.log("\n"+msg+"\n");
-    }
-
     function parse(s) {
         return parser.parse(s);
     }

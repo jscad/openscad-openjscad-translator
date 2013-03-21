@@ -13,10 +13,6 @@ requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-suppor
 
     var filedir = "conditional_and_iterator_functions/";
 
-    logMessage = function(msg){
-        console.log("\n"+msg+"\n");
-    }
-
     function parse(s) {
         return parser.parse(s);
     }

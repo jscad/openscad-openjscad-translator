@@ -11,10 +11,6 @@ requirejs.config({
 requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
     function(fs, assert, parser, Globals, parser_support) {
 
-	logMessage = function(msg){
-		console.log("\n"+msg+"\n");
-	}
-
 	function parse(s) {
 	    return parser.parse(s);
 	}

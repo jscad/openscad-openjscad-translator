@@ -12,11 +12,7 @@ requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-suppor
     function(fs, assert, parser, Globals, parser_support) {
 
     var filedir = "2d_primitives/";
-
-	logMessage = function(msg){
-		console.log("\n"+msg+"\n");
-	}
-
+    
 	function parse(s) {
 	    return parser.parse(s);
 	}

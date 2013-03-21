@@ -13,10 +13,6 @@ requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-suppor
 
     var filedir = "primitive_solids/";
 
-    logMessage = function(msg){
-        console.log("\n"+msg+"\n");
-    }
-
     function parse(s) {
         return parser.parse(s);
     }

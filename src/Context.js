@@ -69,7 +69,7 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
             return this.parentContext.evaluateFunction(name, argnames, argvalues);
         }
             
-        logMessage("WARNING: Ignoring unknown function '"+name+"'.");
+        console.log("WARNING: Ignoring unknown function '"+name+"'.");
         return undefined;
     };
 
@@ -97,7 +97,7 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
             return this.parentContext.evaluateModule(inst, factory);
         }
 
-        logMessage("WARNING: Ignoring unknown module: " + inst.name);
+        console.log("WARNING: Ignoring unknown module: " + inst.name);
         return undefined;
     };
 
@@ -219,7 +219,7 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
         "lookup": function(){
             var low_p, low_v, high_p, high_v;
             if (arguments.length < 2){
-                logMessage("Lookup arguments are invalid. Incorrect parameter count. " +  arguments);
+                console.log("Lookup arguments are invalid. Incorrect parameter count. " +  arguments);
                 return undefined;
             }
 
@@ -230,12 +230,12 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
                 vector.length < 2       ||
                 (vector.length >=2 && !_.isArray(vector[0]))
                 ){
-                logMessage("Lookup arguments are invalid. Incorrect parameters. " +  arguments);
+                console.log("Lookup arguments are invalid. Incorrect parameters. " +  arguments);
                 return undefined;
             }
 
             if (vector[0].length != 2){
-                logMessage("Lookup arguments are invalid. First vector has incorrect number of values. " +  p + ",  " + vector);
+                console.log("Lookup arguments are invalid. First vector has incorrect number of values. " +  p + ",  " + vector);
                 return undefined;
             }
             low_p = vector[0][0];

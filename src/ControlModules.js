@@ -123,7 +123,7 @@ define("ControlModules", ["Globals", "Context", "Range"], function(Globals, Cont
             argvalues.push(Globals.convertForStrFunction(expr.evaluate(context)));
         });
 
-        logMessage(_.template("ECHO: <%=argvalues%>", {argvalues:argvalues}));
+        console.log(_.template("ECHO: <%=argvalues%>", {argvalues:argvalues}));
 
         return undefined;
     };
