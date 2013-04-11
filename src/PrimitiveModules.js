@@ -56,6 +56,7 @@ define("PrimitiveModules", ["Globals", "Context"], function(Globals, Context){
                 }
                 ring(8, 6, 10);
         */
+
         if (_.has(context.vars, 'r')) {
             openjscadArgs.radiusStart = r;
             openjscadArgs.radiusEnd = r;
@@ -67,6 +68,10 @@ define("PrimitiveModules", ["Globals", "Context"], function(Globals, Context){
             openjscadArgs.radiusEnd = r2;
         }
         openjscadArgs.resolution = Context.get_fragments_from_r(Math.max(openjscadArgs.radiusStart, openjscadArgs.radiusEnd), context);
+
+        if (openjscadArgs.radiusStart == 0 && openjscadArgs.radiusEnd == 0){
+            return undefined;
+        }
         
         return _.template('CSG.cylinder({start: [<%=start%>], end: [<%=end%>],radiusStart: <%=radiusStart%>, radiusEnd: <%=radiusEnd%>, resolution: <%=resolution%>})', openjscadArgs);    
     };

@@ -16,14 +16,15 @@ define("TransformModules", ["Globals", "Context"], function(Globals, Context){
 		        });
 		        var childAdaptor = factory.getAdaptor(childInst);
 		        var transformedChild = childAdaptor.evaluate(context, childInst);
-		        transformedChild += cb();
-		        
-		        childModules.push(transformedChild);
+                if (transformedChild){
+                    transformedChild += cb();
+                    childModules.push(transformedChild);
+                }
 		    };
 
 		    if (childModules.length == 1){
 		        return childModules[0];
-		    } else {
+		    } else if (childModules.length > 1) {
 		        return _.first(childModules)+".union([" + _.rest(childModules) + "])";
 		    }
 		    

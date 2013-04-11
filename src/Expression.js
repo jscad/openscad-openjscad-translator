@@ -45,14 +45,25 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "&&":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return false; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return true;
                 }
+                
                 return c1 && c2;
                 break;
             case "||":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return true; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return true;
                 }
@@ -61,6 +72,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "*":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return undefined 
+                }
 
                 if (_.isArray(c1) || _.isArray(c2)){
 
@@ -83,7 +98,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
 
                     return (v1.multiply(v2));
 
-                } 
+                }
 
                 return c1 * c2;
                 
@@ -91,6 +106,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "/":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return undefined 
+                }
 
                 if (_.isArray(c1) || _.isArray(c2)){
 
@@ -134,6 +153,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return undefined 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return undefined;
                 }
@@ -143,6 +166,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "+":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return undefined 
+                }
 
                 if (_.isArray(c1) && _.isArray(c2)){
                     //matrices
@@ -172,6 +199,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return undefined 
+                }
+
                 if (_.isArray(c1) && _.isArray(c2)){
 
                     //matrices
@@ -200,6 +231,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return false; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return false;
                 }
@@ -209,6 +244,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return true; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return true;
                 }
@@ -217,6 +256,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "==":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return false; 
+                }
 
                 if ((isVector(c1) && isVector(c2))
                     || (isMatrix(c1) && isMatrix(c2))){
@@ -232,6 +275,10 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             case "!=":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
+
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return false; 
+                }
 
                 if ((isVector(c1) && isVector(c2))
                     || (isMatrix(c1) && isMatrix(c2))){
@@ -249,18 +296,28 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return true; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return true;
                 }
+
                 return c1 >= c2;
                 break;
             case ">":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
+                if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
+                    return false; 
+                }
+
                 if (_.isArray(c1) || _.isArray(c2)){
                     return false;
                 }
+
                 return c1 > c2;
                 break;
             case "?:":

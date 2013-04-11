@@ -76,10 +76,6 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
     Context.prototype.evaluateModule = function(inst, factory) {
 
         var that = this;
-    // this appears to double the argvalues when calling a submodule...
-    //    _.each(inst.argexpr, function(expr,index,list) {
-    //        inst.argvalues.push(expr.evaluate(that));
-    //    });
 
         var customModule = _.find(this.modules_p, function(x) { return x.name == inst.name; });
         if (customModule !== undefined) {
@@ -148,24 +144,31 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
 
     var functionNameLookup = {
         "cos":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return Math.cos(deg2rad(degree));
         },
         "sin":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return Math.sin(deg2rad(degree));
         },
         "acos":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return rad2deg(Math.acos(degree));
         },
         "asin":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return rad2deg(Math.asin(degree));
         },
         "atan":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return rad2deg(Math.atan(degree));
         },
         "atan2":function(x,y) {
+            if (_.isUndefined(x) || _.isNaN(x) || _.isUndefined(y) || _.isNaN(y)){return undefined;}
             return rad2deg(Math.atan2(x,y));
         },
         "tan":function(degree) {
+            if (_.isUndefined(degree)  || _.isNaN(degree)){return undefined;}
             return Math.tan(deg2rad(degree));
         },
         "rands":function(min_value,max_value,value_count, seed_value){
@@ -180,26 +183,57 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
             return values; 
         },
         "round":function(x){
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+
             // This is because Javascript rounds negative numbers up, whereas c++ rounds down
             return (x<0)? -(Math.round(Math.abs(x))) : Math.round(x);
         },
-        "exp":Math.exp,
-        "abs":Math.abs,
-        "max":Math.max,
-        "min":Math.min,
-        "pow":Math.pow,
-        "ln":Math.log,
-        "ceil":Math.ceil,
-        "floor":Math.floor,
-        "sqrt":Math.sqrt,
-        "len":function(val){
-            var x = _.isString(val) ? Globals.stripString(val) : val;
-            return x.length;
+        "exp":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+
+            return Math.exp(x);
+        },
+        "abs":function(x){
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.abs(x);
+        },
+        "max":function(){
+            return Math.max.apply(null, _.map(arguments, function(num){ return num ? num : -Infinity; }));
+        },
+        "min":function(){
+            return Math.min.apply(null, _.map(arguments, function(num){ return num ? num : Infinity; }));
+        },
+        "pow":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.pow(x);
+        },
+        "ln":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.log(x);
+        },
+        "ceil":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.ceil(x);
+        },
+        "floor":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.floor(x);
+        },
+        "sqrt":function(x) {
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return Math.sqrt(x);
+        },
+        "len":function(x){
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            var y = _.isString(x) ? Globals.stripString(x) : x;
+            return y.length;
         },
         "log":function(){
             if (arguments.length == 2){
+                if (_.isUndefined(arguments[0])  || _.isNaN(arguments[0])||_.isUndefined(arguments[1])  || _.isNaN(arguments[1])){return undefined;}
                 return Math.log(arguments[1])/Math.log(arguments[0]);
             } else if (arguments.length == 1){
+                if (_.isUndefined(arguments[0])  || _.isNaN(arguments[0])){return undefined;}
                 return Math.log(arguments[0]) / Math.log(10.0);
             } else {
                 return undefined;
@@ -213,8 +247,9 @@ define("Context", ["Globals", "openscad-parser-support"], function(Globals, Open
 
             return vals.join('');
         },
-        "sign": function(val){
-            return (val > 0)? 1.0 : ((val < 0)? -1.0 : 0);
+        "sign": function(x){
+            if (_.isUndefined(x)  || _.isNaN(x)){return undefined;}
+            return (x > 0)? 1.0 : ((x < 0)? -1.0 : 0);
         },
         "lookup": function(){
             var low_p, low_v, high_p, high_v;
