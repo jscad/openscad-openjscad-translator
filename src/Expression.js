@@ -26,7 +26,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
             return x;
         }
     }
-    
+
     Sylvester.Matrix.prototype.toString = function(){
         var x = _.map(this.elements, function(y){ return "["+y.join(',')+"]"; });
         return "["+x.join(',')+"]";
@@ -35,7 +35,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
     Sylvester.Vector.prototype.toString = function(){
         return "["+this.elements.join(',')+"]";
     }
-    
+
     Expression.prototype.evaluate = function(context) {
         switch (this.type){
 
@@ -47,13 +47,13 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return false; 
+                    return false;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
                     return true;
                 }
-                
+
                 return c1 && c2;
                 break;
             case "||":
@@ -61,7 +61,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return true; 
+                    return true;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -74,7 +74,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return undefined 
+                    return undefined
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -101,14 +101,14 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 }
 
                 return c1 * c2;
-                
+
                 break;
             case "/":
                 var c1 = this.children[0].evaluate(context);
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return undefined 
+                    return undefined
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -142,9 +142,9 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                     }
 
                     if (_.isNumber(c1) && isVector(c2)) {
-                        return v2.multiply(1/v1);   
+                        return v2.multiply(1/v1);
                     }
-                } 
+                }
 
                 return c1 / c2;
 
@@ -154,7 +154,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return undefined 
+                    return undefined
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -168,7 +168,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return undefined 
+                    return undefined
                 }
 
                 if (_.isArray(c1) && _.isArray(c2)){
@@ -180,11 +180,11 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                         for (var i = 0; i < minLength; i++){
                             var a1 = [];
                             for (var j = 0; j < c1[i].length; j++){
-                                a1[j] = c1[i][j] + c2[i][j];                                
+                                a1[j] = c1[i][j] + c2[i][j];
                             }
                             result.push(a1);
                         }
-                        return result; 
+                        return result;
                     } else if (isMatrix(c1) || isMatrix(c2)){
                         return undefined;
                     }
@@ -200,7 +200,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return undefined 
+                    return undefined
                 }
 
                 if (_.isArray(c1) && _.isArray(c2)){
@@ -213,11 +213,11 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                         for (var i = 0; i < minLength; i++){
                             var a1 = [];
                             for (var j = 0; j < c1[i].length; j++){
-                                a1[j] = c1[i][j] - c2[i][j];                                
+                                a1[j] = c1[i][j] - c2[i][j];
                             }
                             result.push(a1);
                         }
-                        return result; 
+                        return result;
                     }
 
                     return [c1[0] - c2[0], c1[1] - c2[1], c1[2] - c2[2]];
@@ -232,7 +232,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return false; 
+                    return false;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -245,7 +245,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return true; 
+                    return true;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -258,7 +258,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return false; 
+                    return false;
                 }
 
                 if ((isVector(c1) && isVector(c2))
@@ -277,7 +277,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return false; 
+                    return false;
                 }
 
                 if ((isVector(c1) && isVector(c2))
@@ -297,7 +297,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return true; 
+                    return true;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -311,7 +311,7 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c2 = this.children[1].evaluate(context);
 
                 if (_.isUndefined(c1) || _.isUndefined(c2) || _.isNaN(c1) || _.isNaN(c2)){
-                    return false; 
+                    return false;
                 }
 
                 if (_.isArray(c1) || _.isArray(c2)){
@@ -325,7 +325,14 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 return this.children[v ? 1 : 2].evaluate(context);
                 break;
             case "I":
-                return -this.children[0].evaluate(context);
+
+                var c1 = this.children[0].evaluate(context);
+
+                if (_.isArray(c1)){
+                    return [-c1[0], -c1[1], -c1[2]];
+                }
+
+                return -c1;
                 break;
             case "C":
                 return this.const_value;
@@ -360,9 +367,9 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
 
                 return context.evaluateFunction(this.call_funcname, this.call_argnames, argvalues);
                 break;
-            default: 
+            default:
                 console.log("todo - evaluate expression", this);
-        }    
+        }
     };
 
     return Expression;

@@ -1,1 +1,5 @@
-cylinder(r=0, h=9+0.02, $fn=4);
+cube(10);
+
+translate([11, 0, 0]) cube(10);
+
+translate(-[11, 0, 0]) cube(10);
