@@ -1,6 +1,6 @@
 {
   "name": "openscad-openjscad-translator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).",
   "main": "src/OpenscadOpenjscadParser.js",
   "directories": {

@@ -329,7 +329,8 @@ define("Expression", ["Range", "lib/sylvester"], function(Range, Sylvester){
                 var c1 = this.children[0].evaluate(context);
 
                 if (_.isArray(c1)){
-                    return [-c1[0], -c1[1], -c1[2]];
+
+                    return _.map(c1, function(x){return -x;})
                 }
 
                 return -c1;

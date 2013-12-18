@@ -1,5 +1,2 @@
+square([20, 10]);
 cube(10);
-
-translate([11, 0, 0]) cube(10);
-
-translate(-[11, 0, 0]) cube(10);
