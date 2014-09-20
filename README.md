@@ -1,5 +1,7 @@
 # openscad-openjscad-translator
 
+**This project is no longer actively maintained, and was written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
+
 Node module that translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).
 
 See: https://npmjs.org/package/openscad-openjscad-translator
@@ -55,3 +57,7 @@ Creates a optimised script (with Almond AMD loader) in the ```dist``` folder.
     ./jison-build.sh
 
 Compiles the Jison lexer/parser to an AMD module in the ```src``` folder called ```openscad-parser.js```.
+
+## License
+
+As this work is predominantly a port of the OpenSCAD it is therefore also released under the General Public License version 2.
