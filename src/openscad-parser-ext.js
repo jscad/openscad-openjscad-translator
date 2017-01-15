@@ -1,8 +1,12 @@
-define(["Module", "Context", "Globals", "FunctionDef", "openscad-parser-support"], function(Module, Context, Globals, FunctionDef, support){
-
+var _ = require('lodash')
+var Module = require('./Module')
+var Context = require('./Context')
+var Globals = require('./Globals')
+var FunctionDef = require('./FunctionDef')
+var support = require('./openscad-parser-support')
 
     var currmodule = new Module("root");
-        
+
     function resetModule() {
         currmodule = new Module("root");
         Globals.context_stack = [];
@@ -47,7 +51,7 @@ define(["Module", "Context", "Globals", "FunctionDef", "openscad-parser-support"
 
         var p_currmodule = currmodule;
         Globals.module_stack.push(currmodule);
-        
+
         currmodule = new Module(newName);
 
         p_currmodule.modules.push(currmodule);
@@ -67,7 +71,7 @@ define(["Module", "Context", "Globals", "FunctionDef", "openscad-parser-support"
     }
 
     function addModuleAssignmentVar(name, value){
-        currmodule.assignments_var[name] = value; 
+        currmodule.assignments_var[name] = value;
     }
 
     function addModuleFunction(name, expr, argnames, argexpr){
@@ -79,12 +83,11 @@ define(["Module", "Context", "Globals", "FunctionDef", "openscad-parser-support"
     }
 
 
-    return {
-         processModule: processModule,
-         stashModule: stashModule,
-         popModule: popModule,
-         addModuleChild: addModuleChild,
-         addModuleAssignmentVar: addModuleAssignmentVar,
-         addModuleFunction: addModuleFunction
-    }
-})
+  module.exports = {
+       processModule: processModule,
+       stashModule: stashModule,
+       popModule: popModule,
+       addModuleChild: addModuleChild,
+       addModuleAssignmentVar: addModuleAssignmentVar,
+       addModuleFunction: addModuleFunction
+  }

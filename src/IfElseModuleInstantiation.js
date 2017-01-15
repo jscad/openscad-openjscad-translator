@@ -1,14 +1,13 @@
-define("IfElseModuleInstantiation", ["ModuleInstantiation"], function(ModuleInstantiation){
+var ModuleInstantiation = require('./ModuleInstantiation')
 
-    function IfElseModuleInstantiation() {
-        ModuleInstantiation.call(this);
-        this.name = "if";
-        this.else_children = [];
-    };
+function IfElseModuleInstantiation () {
+  ModuleInstantiation.call(this)
+  this.name = 'if'
+  this.else_children = []
+}
 
-    IfElseModuleInstantiation.prototype = new ModuleInstantiation();
+IfElseModuleInstantiation.prototype = new ModuleInstantiation()
 
-    IfElseModuleInstantiation.prototype.constructor = IfElseModuleInstantiation;
+IfElseModuleInstantiation.prototype.constructor = IfElseModuleInstantiation
 
-	return IfElseModuleInstantiation;
-});
+module.exports = IfElseModuleInstantiation

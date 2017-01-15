@@ -1,9 +1,8 @@
-define("OpenjscadSolidFactorySingleton", ["OpenjscadSolidFactory"], function(OpenjscadSolidFactory){
-    var factory = new OpenjscadSolidFactory();
-	
-	return {
-        getInstance: function(){ 
-            return factory; 
-        }
-    }
-});
+var OpenjscadSolidFactory = require('./OpenjscadSolidFactory')
+var factory = new OpenjscadSolidFactory()
+
+module.exports = {
+  getInstance: function () {
+    return factory
+  }
+}

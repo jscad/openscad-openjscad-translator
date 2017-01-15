@@ -1,12 +1,11 @@
-define("ModuleAdaptor", ["Globals", "Context"], function(Globals, Context){
+var Context = require('./Context')
+var Globals = require('./Globals')
 
-    function ModuleAdaptor(){};
+function ModuleAdaptor () {}
 
-    ModuleAdaptor.prototype.evaluate = function(parentContext, inst){
-        inst.isSubmodule = true;
-        return parentContext.evaluateModule(inst);
-    };
+ModuleAdaptor.prototype.evaluate = function (parentContext, inst) {
+  inst.isSubmodule = true
+  return parentContext.evaluateModule(inst)
+}
 
-    return ModuleAdaptor;
-
-});
+module.exports = ModuleAdaptor

@@ -1,6 +1,4 @@
-define("ArgContainer", [], function(){
-	return function() {
-        this.argname;
-        this.argexpr;
-    };
-});
+module.exports = function () {
+  this.argname
+  this.argexpr
+}
