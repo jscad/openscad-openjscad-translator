@@ -47,17 +47,17 @@ use[ \t\r\n>]*"<"           %{ this.begin('cond_use');%}
 <cond_string>"\\v"          %{ stringcontents += '\v';  %}
 <cond_string>"\\f"          %{ stringcontents += '\f';  %}
 <cond_string>"\\e"          %{ stringcontents += '\e';  %}
-<cond_string>[^\\\n\"]+     %{ /*"*/ 
-                                stringcontents += yytext; 
+<cond_string>[^\\\n\"]+     %{ /*"*/
+                                stringcontents += yytext;
                             %}
 <cond_string>"\""           %{
                                 this.popState();
-                                yytext = stringcontents; 
-                                return 'TOK_STRING'; 
+                                yytext = stringcontents;
+                                return 'TOK_STRING';
                             %}
-[\"]                        %{ /*"*/ 
-                                this.begin('cond_string');                                 
-                                stringcontents = ""; 
+[\"]                        %{ /*"*/
+                                this.begin('cond_string');
+                                stringcontents = "";
                             %}
 
 [\n]                        /* Ignore */
@@ -99,23 +99,23 @@ use[ \t\r\n>]*"<"           %{ this.begin('cond_use');%}
 
 program:
         input
-        { 
+        {
             return ext.processModule(yy);
         }
     ;
 
 
-input: 
-        /* empty */ 
-    |   input statement 
+input:
+        /* empty */
+    |   input statement
     ;
 
-inner_input: 
-        /* empty */ 
-    |   inner_input statement 
+inner_input:
+        /* empty */
+    |   inner_input statement
     ;
 
-statement: 
+statement:
         statement_begin statement_end
     ;
 
@@ -124,24 +124,24 @@ statement_begin:
     |   TOK_MODULE TOK_ID '(' arguments_decl optional_commas ')'
         {
             ext.stashModule($2, $4.argnames, $4.argexpr);
-            delete $4;           
-        } 
+            delete $4;
+        }
     ;
 
-statement_end: 
+statement_end:
         ';'
-        {           
+        {
         }
     |   '{' inner_input '}'
         {
             ext.popModule();
-        } 
-    |   module_instantiation 
+        }
+    |   module_instantiation
         {
             ext.addModuleChild($1);
-        } 
+        }
     |   TOK_ID '=' expr ';'
-        {  
+        {
             ext.addModuleAssignmentVar($1, $3);
         }
     |   TOK_FUNCTION TOK_ID '(' arguments_decl optional_commas ')' '=' expr ';'
@@ -153,22 +153,22 @@ statement_end:
     ;
 
 children_instantiation:
-        module_instantiation 
-        {   
+        module_instantiation
+        {
             $$ = new ModuleInstantiation();
-            if ($1) { 
+            if ($1) {
                 $$.children.push($1);
             }
         }
-    |   '{' module_instantiation_list '}' 
+    |   '{' module_instantiation_list '}'
         {
-            $$ = $2; 
+            $$ = $2;
         }
     ;
 
 
 if_statement:
-        TOK_IF '(' expr ')' children_instantiation 
+        TOK_IF '(' expr ')' children_instantiation
         {
             $$ = new IfElseModuleInstantiation();
             $$.argnames.push("");
@@ -181,15 +181,16 @@ if_statement:
                     delete $5.children[i];
             }
             delete $5;
-        } 
+        }
     ;
 
 ifelse_statement:
-        if_statement 
+        if_statement
         {
             $$ = $1;
-        } 
-    |   if_statement TOK_ELSE children_instantiation 
+        }
+//FIXME : this is failing
+/*    |   if_statement TOK_ELSE children_instantiation
         {
             $$ = $1;
             if ($$) {
@@ -199,38 +200,38 @@ ifelse_statement:
                     delete $3.children[i];
             }
             delete $3;
-        } 
+        }*/
     ;
 
 module_instantiation:
-        single_module_instantiation ';' 
-        { 
-            $$ = $1; 
-        } 
-    |   single_module_instantiation children_instantiation 
-        {   
+        single_module_instantiation ';'
+        {
+            $$ = $1;
+        }
+    |   single_module_instantiation children_instantiation
+        {
             $$ = $1;
             if ($$) {
                 $$.children = $2.children;
             } else {
                 for (var i = 0; i < $2.children.length; i++)
                 delete $2.children[i];
-            }   
+            }
             delete $2;
-        } 
-    |   
-        ifelse_statement 
+        }
+    |
+        ifelse_statement
         {
             $$ = $1;
         }
     ;
 
 module_instantiation_list:
-        /* empty */ 
-        { 
-            $$ = new ModuleInstantiation(); 
+        /* empty */
+        {
+            $$ = new ModuleInstantiation();
         }
-    |   module_instantiation_list module_instantiation 
+    |   module_instantiation_list module_instantiation
         {
             $$ = $1;
             if ($$) {
@@ -244,29 +245,29 @@ module_instantiation_list:
     ;
 
 single_module_instantiation:
-        TOK_ID '(' arguments_call ')' 
-        {   
+        TOK_ID '(' arguments_call ')'
+        {
             $$ = new ModuleInstantiation();
             $$.name = $1;
             $$.argnames = $3.argnames;
             $$.argexpr = $3.argexpr;
             delete $3;
-        } 
-    |   '!' single_module_instantiation 
+        }
+    |   '!' single_module_instantiation
         {
             $$ = $2;
             if ($$) {
                 $$.tag_root = true;
-            }                
+            }
         }
-    |   '#' single_module_instantiation 
+    |   '#' single_module_instantiation
         {
             $$ = $2;
             if ($$) {
                 $$.tag_highlight = true;
             }
-        } 
-    |   '%' single_module_instantiation 
+        }
+    |   '%' single_module_instantiation
         {
             /* - NOTE: Currently unimplemented, therefore not displaying parts marked with %
                 $$ = $2;
@@ -277,7 +278,7 @@ single_module_instantiation:
             delete $2;
             $$ = undefined;
         }
-    |   '*' single_module_instantiation 
+    |   '*' single_module_instantiation
         {
             delete $2;
             $$ = undefined;
@@ -285,40 +286,40 @@ single_module_instantiation:
     ;
 
 expr:
-        TOK_TRUE 
+        TOK_TRUE
         {
-            $$ = new Expression(true); 
+            $$ = new Expression(true);
         }
-    |   TOK_FALSE 
-        { 
-            $$ = new Expression(false); 
+    |   TOK_FALSE
+        {
+            $$ = new Expression(false);
         }
-    |   TOK_UNDEF 
+    |   TOK_UNDEF
         {
             $$ = new Expression(undefined);
         }
-    |   TOK_ID 
+    |   TOK_ID
         {
             $$ = new Expression();
             $$.type = "L";
             $$.var_name = $1;
         }
-    |   expr '.' TOK_ID 
-        {   
+    |   expr '.' TOK_ID
+        {
             $$ = new Expression();
             $$.type = "N";
             $$.children.push($1);
             $$.var_name = $3;
-        }  
-    |   TOK_STRING 
-        { 
-            $$ = new Expression(String($1)); 
-        } 
-    |   TOK_NUMBER 
+        }
+    |   TOK_STRING
+        {
+            $$ = new Expression(String($1));
+        }
+    |   TOK_NUMBER
         {
             $$ = new Expression(Number($1));
-        } 
-    |   '[' expr ':' expr ']' 
+        }
+    |   '[' expr ':' expr ']'
         {
             var e_one = new Expression(1.0);
             $$ = new Expression();
@@ -326,149 +327,149 @@ expr:
             $$.children.push($2);
             $$.children.push(e_one);
             $$.children.push($4);
-        } 
-    |   '[' expr ':' expr ':' expr ']' 
+        }
+    |   '[' expr ':' expr ':' expr ']'
         {
             $$ = new Expression();
             $$.type = "R";
             $$.children.push($2);
             $$.children.push($4);
             $$.children.push($6);
-        } 
-    |   '[' optional_commas ']' 
+        }
+    |   '[' optional_commas ']'
         {
-            $$ = new Expression([]); 
-        } 
-    |   '[' vector_expr optional_commas ']' 
+            $$ = new Expression([]);
+        }
+    |   '[' vector_expr optional_commas ']'
         {
-            $$ = $2; 
-        } 
-    |   expr '*' expr 
-        { 
+            $$ = $2;
+        }
+    |   expr '*' expr
+        {
             $$ = new Expression();
             $$.type = '*';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '/' expr 
-        { 
+    |   expr '/' expr
+        {
             $$ = new Expression();
             $$.type = '/';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '%' expr 
-        { 
+    |   expr '%' expr
+        {
             $$ = new Expression();
             $$.type = '%';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '+' expr 
-        { 
+    |   expr '+' expr
+        {
             $$ = new Expression();
             $$.type = '+';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '-' expr 
-        { 
+    |   expr '-' expr
+        {
             $$ = new Expression();
             $$.type = '-';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '<' expr 
-        { 
+    |   expr '<' expr
+        {
             $$ = new Expression();
             $$.type = '<';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr LE expr 
-        { 
+    |   expr LE expr
+        {
             $$ = new Expression();
             $$.type = '<=';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr EQ expr 
-        { 
+    |   expr EQ expr
+        {
             $$ = new Expression();
             $$.type = '==';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr NE expr 
-        { 
+    |   expr NE expr
+        {
             $$ = new Expression();
             $$.type = '!=';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr GE expr 
-        { 
+    |   expr GE expr
+        {
             $$ = new Expression();
             $$.type = '>=';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr '>' expr 
-        { 
+    |   expr '>' expr
+        {
             $$ = new Expression();
             $$.type = '>';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr AND expr 
-        { 
+    |   expr AND expr
+        {
             $$ = new Expression();
             $$.type = '&&';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   expr OR expr 
-        { 
+    |   expr OR expr
+        {
             $$ = new Expression();
             $$.type = '||';
             $$.children.push($1);
-            $$.children.push($3); 
+            $$.children.push($3);
         }
-    |   '+' expr 
-        { 
-            $$ = $2; 
+    |   '+' expr
+        {
+            $$ = $2;
         }
-    |   '-' expr 
-        { 
+    |   '-' expr
+        {
             $$ = new Expression();
             $$.type = 'I';
             $$.children.push($2);
         }
-    |   '!' expr 
-        { 
+    |   '!' expr
+        {
             $$ = new Expression();
             $$.type = '!';
             $$.children.push($2);
         }
-    |   '(' expr ')' 
+    |   '(' expr ')'
             { $$ = $2; }
-    |   expr '?' expr ':' expr 
-        { 
+    |   expr '?' expr ':' expr
+        {
             $$ = new Expression();
             $$.type = '?:';
             $$.children.push($1);
             $$.children.push($3);
             $$.children.push($5);
         }
-    |   expr '[' expr ']' 
-        { 
+    |   expr '[' expr ']'
+        {
             $$ = new Expression();
             $$.type = '[]';
             $$.children.push($1);
             $$.children.push($3);
         }
-    |   TOK_ID '(' arguments_call ')' 
-        { 
+    |   TOK_ID '(' arguments_call ')'
+        {
             $$ = new Expression();
             $$.type = 'F';
             $$.call_funcname = $1;
@@ -476,77 +477,77 @@ expr:
             $$.children = $3.argexpr;
             delete $3;
         }
-    ; 
+    ;
 
 optional_commas:
-        ',' optional_commas 
-    | 
+        ',' optional_commas
+    |
     ;
 
 vector_expr:
-        expr 
-        { 
+        expr
+        {
             $$ = new Expression();
             $$.type = 'V';
             $$.children.push($1);
         }
-    |   vector_expr ',' optional_commas expr 
-        {   
+    |   vector_expr ',' optional_commas expr
+        {
             $$ = $1;
             $$.children.push($4);
         }
     ;
 
 arguments_decl:
-        /* empty */ 
+        /* empty */
         {
             $$ = new ArgsContainer();
-        } 
-    |   argument_decl 
+        }
+    |   argument_decl
         {
             $$ = new ArgsContainer();
             $$.argnames.push($1.argname);
             $$.argexpr.push($1.argexpr);
             delete $1;
         }
-    |   arguments_decl ',' optional_commas argument_decl 
+    |   arguments_decl ',' optional_commas argument_decl
         {
             $$ = $1;
             $$.argnames.push($4.argname);
             $$.argexpr.push($4.argexpr);
             delete $4;
-        } 
+        }
     ;
 
 argument_decl:
-        TOK_ID 
+        TOK_ID
         {
             $$ = new ArgContainer();
             $$.argname = $1;
             $$.argexpr = undefined;
-        } 
-    |   TOK_ID '=' expr 
+        }
+    |   TOK_ID '=' expr
         {
             $$ = new ArgContainer();
             $$.argname = $1;
             $$.argexpr = $3;
-        } 
+        }
     ;
 
 arguments_call:
         /* empty */
         {
             $$ = new ArgsContainer();
-        } 
-    |   argument_call 
-        { 
+        }
+    |   argument_call
+        {
             $$ = new ArgsContainer();
             $$.argnames.push($1.argname);
             $$.argexpr.push($1.argexpr);
             delete $1;
         }
-    |   arguments_call ',' optional_commas argument_call 
-        { 
+    |   arguments_call ',' optional_commas argument_call
+        {
             $$ = $1;
             $$.argnames.push($4.argname);
             $$.argexpr.push($4.argexpr);
@@ -555,13 +556,13 @@ arguments_call:
     ;
 
 argument_call:
-        expr 
-        { 
+        expr
+        {
             $$ = new ArgContainer();
             $$.argexpr = $1;
         }
-    |   TOK_ID '=' expr 
-        { 
+    |   TOK_ID '=' expr
+        {
             $$ = new ArgContainer();
             $$.argname = $1;
             $$.argexpr = $3;
