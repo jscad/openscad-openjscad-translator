@@ -11,9 +11,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "requirejs": "~2.1.5",
-    "sylvester": "~0.0.21",
-    "underscore": "~1.4.4"
+    "lodash": "^4.17.4",
+    "requirejs": "~2.1.5"
   },
   "devDependencies": {
     "jison": "^0.4.17",
