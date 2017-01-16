@@ -1,56 +1,30 @@
-var requirejs = require('requirejs');
+const check = require('./helpers').check
+const filedir = 'primitive_solids/'
 
-requirejs.config({
-    baseUrl: '../src',
-    paths: {
-        lib: '../lib'
-    },
-    nodeRequire: require
-});
+exports['test cube'] = function () {
+  check(filedir, 'cubeEx1')
+  check(filedir, 'cubeEx2')
+}
 
-requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
-    function(fs, assert, parser, Globals, parser_support) {
+exports['test sphere'] = function () {
+  check(filedir, 'sphereEx1')
+  check(filedir, 'sphereEx2')
+}
 
-    var filedir = "primitive_solids/";
+exports['test cylinder'] = function () {
+  check(filedir, 'cylinderEx1')
+  check(filedir, 'cylinderEx2')
+  check(filedir, 'cylinderEx3')
+  check(filedir, 'cylinderEx5')
+}
 
-    function parse(s) {
-        return parser.parse(s);
-    }
+exports['test cylinder additional parameters'] = function () {
+  check(filedir, 'cylinderEx4')
+}
 
-    function check(testFileName) {
-        var test = fs.readFileSync(filedir+testFileName+".scad", "utf8");
-        var expected = fs.readFileSync(filedir+testFileName+".jscad", "utf8").replace(/\n/g,'');
-        var actual = parse(test).lines.join('').replace(/\n/g,'');
-        assert.equal(actual, expected, console.log(testFileName));
-    }
+exports['test polyhedron'] = function () {
+  check(filedir, 'polyhedronEx1')
+  check(filedir, 'polyhedronEx2')
+}
 
-    exports["test cube"] = function() {
-        check("cubeEx1");
-        check("cubeEx2");
-    }
-
-    exports["test sphere"] = function() {
-        check("sphereEx1");
-        check("sphereEx2");
-    }
-
-
-    exports["test cylinder"] = function() {
-        check("cylinderEx1");
-        check("cylinderEx2");
-        check("cylinderEx3");
-        check("cylinderEx5");
-    }
-
-    exports["test cylinder additional parameters"] = function() {
-        check("cylinderEx4");
-    }
-
-    exports["test polyhedron"] = function() {
-        check("polyhedronEx1");
-        check("polyhedronEx2");
-    }
-
-    if(module === require.main) require("test").run(exports);
-
-});
+if (module === require.main) require('test').run(exports)

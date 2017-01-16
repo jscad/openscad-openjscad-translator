@@ -1,45 +1,21 @@
-var requirejs = require('requirejs');
+const check = require('./helpers').check
 
-requirejs.config({
-    baseUrl: '../src',
-    paths: {
-        lib: '../lib'
-    },
-    nodeRequire: require
-});
+const filedir = 'modules/'
 
-requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
-    function(fs, assert, parser, Globals, parser_support) {
+exports['test modules'] = function () {
+  check(filedir, 'modulesEx1')
+}
 
-    var filedir = "modules/";
+exports['test modules child'] = function () {
+  check(filedir, 'modulesChildEx1')
+}
 
-    function parse(s) {
-        return parser.parse(s);
-    }
+exports['test modules children'] = function () {
+  check(filedir, 'modulesChildrenEx1')
+}
 
-    function check(testFileName) {
-        var test = fs.readFileSync(filedir+testFileName+".scad", "utf8");
-        var expected = fs.readFileSync(filedir+testFileName+".jscad", "utf8").replace(/\n/g,'');
-        var actual = parse(test).lines.join('').replace(/\n/g,'');
-        assert.equal(actual, expected, console.log(testFileName));
-    }
+exports['test modules parameters'] = function () {
+  check(filedir, 'modulesParametersEx1')
+}
 
-	exports["test modules"] = function() {
-	    check("modulesEx1");
-	}
-
-	exports["test modules child"] = function() {
-	    check("modulesChildEx1");
-	}
-
-	exports["test modules children"] = function() {
-	    check("modulesChildrenEx1");
-	}
-
-	exports["test modules parameters"] = function() {
-	    check("modulesParametersEx1");
-	}
-
-	if(module === require.main) require("test").run(exports);
-
-});
+if (module === require.main) require('test').run(exports)
