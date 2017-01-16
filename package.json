@@ -2,17 +2,21 @@
   "name": "openscad-openjscad-translator",
   "version": "0.0.7",
   "description": "Translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).",
-  "main": "src/OpenscadOpenjscadParser.js",
+  "main": "src/parserWrapper.js",
+  "browser": {
+    "lapack": false
+  },
   "scripts": {
     "build": "jison openscad-parser.jison -o src/openscad-parser_amd.js -m amd",
-    "build2": "node src/parserMaker"
+    "build2": "node src/parserMaker",
+    "test":"node tests/all-tests"
   },
   "directories": {
     "test": "tests"
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "requirejs": "~2.1.5"
+    "sylvester": "0.0.21"
   },
   "devDependencies": {
     "jison": "^0.4.17",
