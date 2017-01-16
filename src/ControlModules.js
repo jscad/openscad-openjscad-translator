@@ -126,7 +126,7 @@ Echo.prototype.evaluate = function(parentContext, inst){
       argvalues.push(Globals.convertForStrFunction(expr.evaluate(context)));
   });
 
-  console.log(_.template("ECHO: <%=argvalues%>", {argvalues:argvalues}));
+  console.log(_.template("ECHO: <%=argvalues%>")({argvalues:argvalues}));
 
   return undefined;
 };

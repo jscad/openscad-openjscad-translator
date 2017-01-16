@@ -22,7 +22,7 @@ var resolution = Context.get_fragments_from_r(r, context);
 
 var openjscadParameters = {center:[0,0,0], resolution:resolution, radius:r};
 
-return _.template('CSG.sphere({center: [<%=String(center)%>], radius: <%= radius %>, resolution: <%= resolution%>})', openjscadParameters);
+return _.template('CSG.sphere({center: [<%=String(center)%>], radius: <%= radius %>, resolution: <%= resolution%>})')(openjscadParameters);
 }
 
 function Cylinder(a){
@@ -75,7 +75,7 @@ if (openjscadArgs.radiusStart == 0 && openjscadArgs.radiusEnd == 0){
   return undefined;
 }
 
-return _.template('CSG.cylinder({start: [<%=start%>], end: [<%=end%>],radiusStart: <%=radiusStart%>, radiusEnd: <%=radiusEnd%>, resolution: <%=resolution%>})', openjscadArgs);
+return _.template('CSG.cylinder({start: [<%=start%>], end: [<%=end%>],radiusStart: <%=radiusStart%>, radiusEnd: <%=radiusEnd%>, resolution: <%=resolution%>})')(openjscadArgs);
 };
 
 
@@ -102,7 +102,7 @@ if (isCentered){
   openjscadArgs.centerVector = [openjscadArgs.radius[0],openjscadArgs.radius[1],openjscadArgs.radius[2]];
 }
 
-return _.template('CSG.cube({center: [<%=String(centerVector)%>],radius: [<%= radius %>], resolution: <%= resolution%>})', openjscadArgs);
+return _.template('CSG.cube({center: [<%=String(centerVector)%>],radius: [<%= radius %>], resolution: <%= resolution%>})')(openjscadArgs)
 };
 
 
@@ -116,7 +116,7 @@ var context = Context.newContext(parentContext, ["r", "$fn"], [], inst);
 var r = Context.contextVariableLookup(context, "r", 1);
 var resolution = Context.get_fragments_from_r(r, context);
 
-return _.template('CAG.circle({center: [0,0], radius: <%=r%>, resolution: <%=resolution%>})', {r:r,resolution:resolution});
+return _.template('CAG.circle({center: [0,0], radius: <%=r%>, resolution: <%=resolution%>})')({r: r,resolution: resolution})
 
 };
 
@@ -136,7 +136,7 @@ if (!center){
   centerPoint = [size[0]/2, size[1]/2]
 }
 
-return _.template('CAG.rectangle({center: [<%=centerPoint%>], radius: [<%=radius%>]})', {centerPoint:centerPoint, radius:radius});
+return _.template('CAG.rectangle({center: [<%=centerPoint%>], radius: [<%=radius%>]})')({centerPoint:centerPoint, radius:radius});
 };
 
 function Polygon(a){
@@ -151,11 +151,11 @@ var paths = Context.contextVariableLookup(context, "paths", []);
 var pointsMap = [];
 
 function formatPoints (points){
-  return _.map(points, function(x){return _.template("[<%=x%>]", {x:x})});
+  return _.map(points, function(x){return _.template("[<%=x%>]")({x:x})});
 }
 
 if (_.isEmpty(paths)){
-  return _.template('CAG.fromPoints([<%=points%>])', {points:formatPoints(points)});
+  return _.template('CAG.fromPoints([<%=points%>])')({points:formatPoints(points)});
 }
 
 if (paths.length > 1){
@@ -164,7 +164,7 @@ if (paths.length > 1){
   _.each(_.first(paths), function(x) {
       pointsMap.push(points[x]);
   });
-  lines += _.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG().subtract([', {points:formatPoints(pointsMap)});
+  lines += _.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG().subtract([')({points:formatPoints(pointsMap)});
 
   var holes = [];
 
@@ -173,7 +173,7 @@ if (paths.length > 1){
       _.each(shape, function(x) {
           pointsMap.push(points[x]);
       });
-      holes.push(_.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG()', {points:formatPoints(pointsMap)}));
+      holes.push(_.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG()')({points:formatPoints(pointsMap)}));
   });
 
   lines += holes.join(',') + "])";
@@ -202,13 +202,13 @@ var polygons=[];
 
 _.each(triangles, function(triangle) {
   polygons.push(
-      _.template("new CSG.Polygon([new CSG.Vertex(new CSG.Vector3D([<%=vec1%>])),new CSG.Vertex(new CSG.Vector3D([<%=vec2%>])),new CSG.Vertex(new CSG.Vector3D([<%=vec3%>]))])",
-          {vec1:points[triangle[2]],
+      _.template("new CSG.Polygon([new CSG.Vertex(new CSG.Vector3D([<%=vec1%>])),new CSG.Vertex(new CSG.Vector3D([<%=vec2%>])),new CSG.Vertex(new CSG.Vector3D([<%=vec3%>]))])")
+          ({vec1:points[triangle[2]],
           vec2:points[triangle[1]],
           vec3:points[triangle[0]]}));
 });
 
-return _.template("CSG.fromPolygons([<%=polygons%>])", {polygons:polygons});
+return _.template("CSG.fromPolygons([<%=polygons%>])")({polygons:polygons});
 };
 
 

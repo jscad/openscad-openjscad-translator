@@ -56,7 +56,7 @@ ColorTransform.prototype.evaluate = function (parentContext, inst) {
   }
 
   return this.transformChildren(inst.children, context, function () {
-    return _.template('.setColor(<%=color%>)', {color: color})
+    return _.template('.setColor(<%=color%>)')({color: color})
   })
 }
 
@@ -81,7 +81,7 @@ MirrorTransform.prototype.evaluate = function (parentContext, inst) {
   }
 
   return this.transformChildren(inst.children, context, function () {
-    return _.template('.mirrored(CSG.Plane.fromNormalAndPoint([<%=v%>], [0,0,0]))', {v: v})
+    return _.template('.mirrored(CSG.Plane.fromNormalAndPoint([<%=v%>], [0,0,0]))')({v: v})
   })
 }
 
@@ -102,7 +102,8 @@ RotateTransform.prototype.evaluate = function (parentContext, inst) {
 
   if (_.isArray(a)) {
     return this.transformChildren(inst.children, context, function () {
-      return _.template('.rotateX(<%=degreeX%>).rotateY(<%=degreeY%>).rotateZ(<%=degreeZ%>)', {degreeX: a[0],degreeY: a[1],degreeZ: a[2]})
+      return _.template('.rotateX(<%=degreeX%>).rotateY(<%=degreeY%>).rotateZ(<%=degreeZ%>)')
+      ({degreeX: a[0],degreeY: a[1],degreeZ: a[2]})
     })
   } else {
     var v = Context.contextVariableLookup(context, 'v', undefined)
@@ -110,7 +111,7 @@ RotateTransform.prototype.evaluate = function (parentContext, inst) {
       if (v === undefined || v.toString() == '0,0,0') {
         v = [0, 0, 1]
       }
-      return _.template('.transform(CSG.Matrix4x4.rotation([0,0,0], [<%=vector%>], <%=degree%>))', {degree: a, vector: v})
+      return _.template('.transform(CSG.Matrix4x4.rotation([0,0,0], [<%=vector%>], <%=degree%>))')({degree: a, vector: v})
     })
   }
 }
@@ -136,7 +137,7 @@ ScaleTransform.prototype.evaluate = function (parentContext, inst) {
   }
 
   return this.transformChildren(inst.children, context, function () {
-    return _.template('.scale([<%=v%>])', {v: v})
+    return _.template('.scale([<%=v%>])')({v: v})
   })
 }
 
@@ -156,7 +157,7 @@ TranslateTransform.prototype.evaluate = function (parentContext, inst) {
   var v = Context.contextVariableLookup(context, 'v', [0, 0, 0])
 
   return this.transformChildren(inst.children, context, function () {
-    return _.template('.translate([<%=v%>])', {v: v})
+    return _.template('.translate([<%=v%>])')({v: v})
   })
 }
 
@@ -216,7 +217,7 @@ MultimatrixTransform.prototype.evaluate = function (parentContext, inst) {
   }
 
   return this.transformChildren(inst.children, context, function () {
-    return _.template('.transform(new CSG.Matrix4x4( [<%= matrix %>] ))', {matrix: matrix})
+    return _.template('.transform(new CSG.Matrix4x4( [<%= matrix %>] ))')({matrix: matrix})
   })
 }
 
@@ -246,10 +247,11 @@ ExtrudeTransform.prototype.evaluate = function (parentContext, inst) {
   }
 
   return this.transformChildren(inst.children, context, function () {
-    var template = _.template('.extrude({offset: [0, 0, <%=height%>], twistangle: <%=twist%>,twiststeps: <%=slices%>})', {height: height, twist: twist, slices: slices})
+    var template = _.template('.extrude({offset: [0, 0, <%=height%>], twistangle: <%=twist%>,twiststeps: <%=slices%>})')
+      ({height: height, twist: twist, slices: slices})
     if (center) {
       var offset = -height / 2
-      template += _.template('.translate([0,0,<%=offset%>])', {offset: offset})
+      template += _.template('.translate([0,0,<%=offset%>])')({offset: offset})
     }
     return template
   })

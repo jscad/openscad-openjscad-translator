@@ -309,17 +309,17 @@
 					normal[j] = this.readReal32();
 				}
 
-				var csgPlane = _.template("new CSG.Plane(new CSG.Vector3D([<%=normal%>]), 1)", {normal: normal});
+				var csgPlane = _.template("new CSG.Plane(new CSG.Vector3D([<%=normal%>]), 1)")({normal: normal});
 
 				for(var j=0; j<3; j++) {
 					var x = this.readReal32();
 					var y = this.readReal32();
 					var z = this.readReal32();
-					csgVertices.push(_.template("new CSG.Vertex(new CSG.Vector3D([<%=vertex%>]))", {vertex:[x,y,z]}));
+					csgVertices.push(_.template("new CSG.Vertex(new CSG.Vector3D([<%=vertex%>]))")({vertex:[x,y,z]}));
 				}
 				this.pos += 2;
 
-				csgPolygons.push(_.template("new CSG.Polygon([<%=vertices%>], null)", {vertices:csgVertices}));
+				csgPolygons.push(_.template("new CSG.Polygon([<%=vertices%>], null)")({vertices:csgVertices}));
 			}
 		} else {
 
