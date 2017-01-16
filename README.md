@@ -1,10 +1,18 @@
 # openscad-openjscad-translator
 
-**This project is no longer actively maintained, and was written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
+**This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
 
 Node module that translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).
 
 See: https://npmjs.org/package/openscad-openjscad-translator
+
+
+## Table of Contents
+
+- [Installation](#Install)
+- [Usage](#Usage)
+- [Build](#Build)
+- [License](#license)
 
 ## Install
 
@@ -15,25 +23,21 @@ See: https://npmjs.org/package/openscad-openjscad-translator
 ### Node
 
     var parser = require('openscad-openjscad-translator')
-    var fs = require("fs");
-    
-    var openSCADText = fs.readFileSync("test.scad", "UTF8");
-    var openJSCADResult = parser.parse(openSCADText);
-    
-    console.log(openJSCADResult);
+    var fs = require('fs')
+
+    var openSCADText = fs.readFileSync("test.scad", "UTF8")
+    var openJSCADResult = parser.parse(openSCADText)
+
+    console.log(openJSCADResult)
 
 ### Web
 
     ...
-    <script type="text/javascript" src="../lib/underscore.js"></script>
-    <script type="text/javascript" src="../lib/jquery.js"></script>
-
     <script src="../dist/web-built.js"></script>
 
     <script type="text/javascript">
-    $(function(){
-      console.log(openscadOpenJscadParser.parse($('#txt').text()));
-    })
+		var text = document.getElementById('txt').innerText
+		console.log(openscadOpenJscadParser.parse(text))
     </script>
     ...
 
@@ -45,18 +49,26 @@ Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOp
 
 ### Web
 
-    node tools/r.js -o build-web.js
+	not minified :
 
-Creates a optimised script (with Almond AMD loader) in the ```dist``` folder.
+		npm run build
+
+	minified:
+
+		npm run build-min
+
+
+Creates scripts in the ```dist``` folder.
 
 
 ## Develop
 
 ### Jison
 
-    ./jison-build.sh
+    npm run build-parser
 
 Compiles the Jison lexer/parser to an AMD module in the ```src``` folder called ```openscad-parser.js```.
+
 
 ## License
 
