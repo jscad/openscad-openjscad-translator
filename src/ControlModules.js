@@ -42,7 +42,7 @@ IfStatement.prototype.evaluate = function(parentContext, inst){
       return undefined;
   } else {
       if (childModules.length > 1){
-          return _.first(childModules)+".union([" + _.rest(childModules) + "])";
+          return _.first(childModules)+".union([" + _.tail(childModules) + "])";
       } else {
           return childModules[0];
       }
@@ -98,7 +98,7 @@ function ForLoopStatement(factory, args){
 
       // Note: we union here so subsequent actions (e.g. translate) can be performed on the entire result of the for loop.
       if (_.isArray(this.evaluatedChildren) && this.evaluatedChildren.length > 1){
-          var unionedEvaluatedChildren = _.first(this.evaluatedChildren)+"."+this.csgOp+"([" + _.rest(this.evaluatedChildren) + "])";
+          var unionedEvaluatedChildren = _.first(this.evaluatedChildren)+"."+this.csgOp+"([" + _.tail(this.evaluatedChildren) + "])";
           this.evaluatedChildren = [unionedEvaluatedChildren];
       }
 

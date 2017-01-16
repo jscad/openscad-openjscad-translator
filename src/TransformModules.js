@@ -26,7 +26,7 @@ function TransformModule (factory) {
     if (childModules.length == 1) {
       return childModules[0]
     } else if (childModules.length > 1) {
-      return _.first(childModules) + '.union([' + _.rest(childModules) + '])'
+      return _.first(childModules) + '.union([' + _.tail(childModules) + '])'
     }
   }
 }
