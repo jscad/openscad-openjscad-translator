@@ -7,9 +7,10 @@
     "lapack": false
   },
   "scripts": {
-    "build": "jison openscad-parser.jison -o src/openscad-parser_amd.js -m amd",
-    "build2": "node src/parserMaker",
-    "test":"node tests/all-tests"
+    "test": "node tests/all-tests",
+    "build": "browserify src/parserWrapper.js --ignore lapack  --standalone openscadOpenJscadParser -o dist/web-built.js",
+    "build-min":"browserify src/parserWrapper.js --ignore lapack  --standalone openscadOpenJscadParser | uglifyjs -c > dist/web-built.min.js",
+    "build-parser": "node src/parserMaker"
   },
   "directories": {
     "test": "tests"
@@ -19,8 +20,10 @@
     "sylvester": "0.0.21"
   },
   "devDependencies": {
+    "browserify": "^13.3.0",
     "jison": "^0.4.17",
-    "test": "~0.6.0"
+    "test": "~0.6.0",
+    "uglifyify": "^3.0.4"
   },
   "repository": {
     "type": "git",
