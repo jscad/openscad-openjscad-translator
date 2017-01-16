@@ -16,7 +16,7 @@ const Expression = require('./Expression')
 const ModuleInstantiation = require('./ModuleInstantiation')
 const IfElseModuleInstantiation = require('./IfElseModuleInstantiation')
 ${parserSource}`
-fs.writeFileSync(path.join(__dirname, 'parserV2.js'), parserSource)
+fs.writeFileSync(path.join(__dirname, 'parserCJS.js'), parserSource)
 
 // ext, ArgContainer, ArgsContainer, Expression, ModuleInstantiation, IfElseModuleInstantiation
 // openscad-parser-ext", "ArgContainer", "ArgsContainer", "Expression", "ModuleInstantiation", "IfElseModuleInstantiation
