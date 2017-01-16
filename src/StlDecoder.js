@@ -327,14 +327,14 @@
 				var csgVertices = [];
 				for(var j=0; j<3; j++) {
 					var vertex = this.readVertex(i*3+j)
-					csgVertices.push(_.template("new CSG.Vertex(new CSG.Vector3D([<%=vertex%>]))", {vertex:vertex}));
+					csgVertices.push(_.template("new CSG.Vertex(new CSG.Vector3D([<%=vertex%>]))")({vertex:vertex}));
 				}
-				csgPolygons.push(_.template("new CSG.Polygon([<%=vertices%>], null)", {vertices:csgVertices}));
+				csgPolygons.push(_.template("new CSG.Polygon([<%=vertices%>], null)")({vertices:csgVertices}));
 			}
 
 		}
 
-		return _.template("CSG.fromPolygons([<%=polygons%>])", {polygons:csgPolygons});
+		return _.template("CSG.fromPolygons([<%=polygons%>])")({polygons:csgPolygons});
 	};
 
 	STL.prototype.drawWireFrame = function(context,		// [in] canvas context

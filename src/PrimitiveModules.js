@@ -184,7 +184,7 @@ if (paths.length > 1){
   _.each(paths[0], function(x) {
       pointsMap.push(points[x]);
   });
-  return _.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG()', {points:formatPoints(pointsMap)});
+  return _.template('(new CSG.Path2D([<%=points%>],true)).innerToCAG()')({points:formatPoints(pointsMap)});
 }
 };
 

@@ -7,7 +7,6 @@ function IfElseModuleInstantiation () {
 }
 
 IfElseModuleInstantiation.prototype = new ModuleInstantiation()
-
 IfElseModuleInstantiation.prototype.constructor = IfElseModuleInstantiation
 
 module.exports = IfElseModuleInstantiation

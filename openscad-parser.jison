@@ -189,8 +189,7 @@ ifelse_statement:
         {
             $$ = $1;
         }
-//FIXME : this is failing
-/*    |   if_statement TOK_ELSE children_instantiation
+    |   if_statement TOK_ELSE children_instantiation
         {
             $$ = $1;
             if ($$) {
@@ -200,7 +199,7 @@ ifelse_statement:
                     delete $3.children[i];
             }
             delete $3;
-        }*/
+        }
     ;
 
 module_instantiation:
