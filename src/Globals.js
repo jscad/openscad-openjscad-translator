@@ -1,3 +1,5 @@
+var _ = require('lodash')
+
 var singleLineModuleRegex = /(module\s*\w*\([^\)]*\)[\w\n]*)([^{};]*);/gm;
 var singleLineModuleReplacement = "$1 {$2;};";
 var multiLineCommentRegex = /((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/gm;
@@ -27,7 +29,9 @@ function convertForStrFunction(val){
 }
 
 function preParse(text){
-  return text.replace(multiLineCommentRegex, '').replace(singleLineModuleRegex, singleLineModuleReplacement);
+  return text
+    .replace(multiLineCommentRegex, '')
+    .replace(singleLineModuleRegex, singleLineModuleReplacement)
 }
 
 module.exports =  {

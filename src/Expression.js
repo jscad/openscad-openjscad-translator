@@ -1,5 +1,6 @@
 var Range = require('./Range')
 var Sylvester = require('sylvester')
+var _ = require('lodash')
 
 
 function Expression(value) {

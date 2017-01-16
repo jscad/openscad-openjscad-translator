@@ -1,3 +1,4 @@
+var _ = require('lodash')
 var Context = require('./Context')
 var Globals = require('./Globals')
 

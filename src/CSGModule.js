@@ -1,6 +1,6 @@
-
 var Context = require('./Context')
 var Globals = require('./Globals')
+var _ = require('lodash')
 
 function CSGModule(factory, csgOperation){
   this.csgOperation = csgOperation;

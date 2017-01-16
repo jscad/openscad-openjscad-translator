@@ -1,5 +1,7 @@
+var _ = require('lodash')
 var Context = require('./Context')
 var Globals = require('./Globals')
+
 function Child(factory){
 this.factory = factory;
 };
