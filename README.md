@@ -9,18 +9,18 @@ See: https://npmjs.org/package/openscad-openjscad-translator
 
 ## Table of Contents
 
-- [Installation](#Install)
-- [Usage](#Usage)
-- [Build](#Build)
+- [Installation](#install)
+- [Usage](#usage)
+- [Build](#build)
 - [License](#license)
 
 ## Install
 
 	npm install openscad-openjscad-translator
 
-	>NOTE: for now we need to use a temporary build of the sylvester (node-sylvester)
-	library since the one on NPM has a missing flag which makes use with browserify impossible:
-	see : [here](https://github.com/NaturalNode/node-sylvester/issues/9) and [here](https://github.com/NaturalNode/node-sylvester/issues/4)
+>NOTE: for now we need to use a temporary build of the sylvester (node-sylvester)
+library since the one on NPM has a missing flag which makes use with browserify impossible:
+see : [here](https://github.com/NaturalNode/node-sylvester/issues/9) and [here](https://github.com/NaturalNode/node-sylvester/issues/4)
 
 ## Usage
 
