@@ -1,57 +1,55 @@
-define("ModuleInstantiation", ["Globals", "OpenjscadSolidFactorySingleton"], function(Globals, OpenjscadSolidFactorySingleton){
+var _ = require('lodash')
+var OpenjscadSolidFactorySingleton = require('./OpenjscadSolidFactorySingleton')
 
-	function ModuleInstantiation() {
-        this.name;
-        this.argnames = [];
-        this.argvalues = [];
-        this.argexpr = [];
-        this.children = [];
-        this.isSubmodule = false;
-        this.context;
-    };
+function ModuleInstantiation () {
+  this.name
+  this.argnames = []
+  this.argvalues = []
+  this.argexpr = []
+  this.children = []
+  this.isSubmodule = false
+  this.context
+}
 
-    ModuleInstantiation.prototype.evaluate = function(context) {
+ModuleInstantiation.prototype.evaluate = function (context) {
+  var evaluatedModule
 
-        var evaluatedModule;
+  // NOTE: not sure how we should handle this in javascript ... is it necessary?
+  // if (this.context === null) {
+  //    console.log("WARNING: Ignoring recursive module instantiation of ", this.name)
+  // } else {
+  var that = this
 
-        // NOTE: not sure how we should handle this in javascript ... is it necessary?
-        //if (this.context === null) {
-        //    console.log("WARNING: Ignoring recursive module instantiation of ", this.name);
-        //} else {
-            var that = this;
+  this.argvalues = []
 
-            this.argvalues = [];
+  _.each(this.argexpr, function (expr, index, list) {
+    that.argvalues.push(expr.evaluate(context))
+  })
 
-            _.each(this.argexpr, function(expr,index,list) {
-                that.argvalues.push(expr.evaluate(context));
-            });
+  that.context = context
 
-            that.context = context;
+  evaluatedModule = context.evaluateModule(that, OpenjscadSolidFactorySingleton.getInstance())
 
-            evaluatedModule = context.evaluateModule(that, OpenjscadSolidFactorySingleton.getInstance());
+  that.context = null
+  that.argvalues = []
 
-            that.context = null;
-            that.argvalues = [];
+  // }
+  return evaluatedModule
+}
 
-        //}
-        return evaluatedModule;
-    };
+ModuleInstantiation.prototype.evaluateChildren = function (context) {
+  var childModules = []
 
-    ModuleInstantiation.prototype.evaluateChildren = function(context) {
+  for (var i = 0; i < this.children.length; i++) {
+    var childInst = this.children[i]
 
-        var childModules = []
+    var evaluatedChild = childInst.evaluate(context)
+    if (evaluatedChild !== undefined) {
+      childModules.push(evaluatedChild)
+    }
+  }
 
-        for (var i = 0; i < this.children.length; i++) {
-            var childInst = this.children[i];
-            
-            var evaluatedChild = childInst.evaluate(context);
-            if (evaluatedChild !== undefined){
-                childModules.push(evaluatedChild);
-            }
-        };
-        
-        return childModules;
-    };
+  return childModules
+}
 
-	return ModuleInstantiation;
-});
+module.exports = ModuleInstantiation

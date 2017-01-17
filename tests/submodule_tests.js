@@ -1,48 +1,21 @@
-var requirejs = require('requirejs');
+const check = require('./helpers').check
+const filedir = 'submodule_tests/'
 
-requirejs.config({
-    baseUrl: '../src',
-    paths: {
-        lib: '../lib'
-    },
-    nodeRequire: require
-});
+exports['test transformed submodule'] = function () {
+  check(filedir, 'transformedSubmoduleEx1')
+}
 
-requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
-    function(fs, assert, parser, Globals, parser_support) {
+exports['test transformed submodule with extra line'] = function () {
+  check(filedir, 'transformedSubmoduleEx2')
+}
 
-    var filedir = "submodule_tests/";
+exports['test transformed submodule with color mod'] = function () {
+  check(filedir, 'transformedSubmoduleEx3')
+}
 
-    function parse(s) {
-        return parser.parse(s);
-    }
+exports['test nested submodules'] = function () {
+  check(filedir, 'nestedSubmoduleEx1')
+  check(filedir, 'nestedSubmoduleEx2')
+}
 
-    function check(testFileName) {
-        var test = fs.readFileSync(filedir+testFileName+".scad", "utf8");
-        var expected = fs.readFileSync(filedir+testFileName+".jscad", "utf8").replace(/\n/g,'');
-        var actual = parse(test).lines.join('').replace(/\n/g,'');
-        assert.equal(actual, expected, console.log(testFileName));
-    }
-
-	exports["test transformed submodule"] = function() {
-	    check("transformedSubmoduleEx1");
-	}
-
-
-	exports["test transformed submodule with extra line"] = function() {
-		check("transformedSubmoduleEx2");
-	}
-
-	exports["test transformed submodule with color mod"] = function() {
-		check("transformedSubmoduleEx3");
-	}
-
-	exports["test nested submodules"] = function() {
-		check("nestedSubmoduleEx1");
-		check("nestedSubmoduleEx2");
-	}
-
-
-	if(module === require.main) require("test").run(exports);
-
-});
+if (module === require.main) require('test').run(exports)

@@ -2,18 +2,32 @@
   "name": "openscad-openjscad-translator",
   "version": "0.0.7",
   "description": "Translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).",
-  "main": "src/OpenscadOpenjscadParser.js",
+  "main": "src/parserWrapper.js",
+  "browser": {
+    "lapack": false
+  },
+  "scripts": {
+    "test": "node tests/all-tests",
+    "build": "browserify src/parserWrapper.js --ignore lapack  --standalone openscadOpenJscadParser -o dist/web-built.js",
+    "build-min": "browserify src/parserWrapper.js --ignore lapack  --standalone openscadOpenJscadParser | uglifyjs -c > dist/web-built.min.js",
+    "build-all": "npm run build && npm run build-min",
+    "build-parser": "node src/parserMaker",
+    "release-patch": "git checkout master; npm version patch && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags ",
+    "release-minor": "git checkout master; npm version minor && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags ",
+    "release-major": "git checkout master; npm version major && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags "
+  },
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "requirejs": "~2.1.5",
-    "sylvester": "~0.0.21",
-    "underscore": "~1.4.4"
+    "lodash": "^4.17.4",
+    "sylvester": "github:kaosat-dev/node-sylvester"
   },
   "devDependencies": {
-    "jison": "~0.3.12",
-    "test": "~0.6.0"
+    "browserify": "^13.3.0",
+    "jison": "^0.4.17",
+    "test": "~0.6.0",
+    "uglifyify": "^3.0.4"
   },
   "repository": {
     "type": "git",
@@ -26,7 +40,7 @@
     "openscad",
     "openjscad"
   ],
-  "author":{
+  "author": {
     "name": "Gary Hodgson",
     "email": "contact@garyhodgson.com",
     "url": "http://garyhodgson.com"

@@ -26,15 +26,11 @@
     cy_h = r_from_dia(size * 2.5);
   </div>
 
-	<script type="text/javascript" src="../lib/underscore.js"></script>
-	<script type="text/javascript" src="../lib/jquery.js"></script>
-    
   <script src="../dist/web-built.js"></script>
 
   <script type="text/javascript">
-    $(function(){
-      console.log(openscadOpenJscadParser.parse($('#txt').text()));
-    })
+		var text = document.getElementById('txt').innerText
+		console.log(openscadOpenJscadParser.parse(text))
   </script>
 </body>
 </html>

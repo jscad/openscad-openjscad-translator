@@ -1,49 +1,49 @@
-define("ChildModule", ["Globals", "Context"], function(Globals, Context){
+var _ = require('lodash')
+var Context = require('./Context')
+var Globals = require('./Globals')
 
-	function Child(factory){
-		this.factory = factory;
-    };
+function Child(factory){
+this.factory = factory;
+};
 
-    Child.prototype.evaluate = function(parentContext, inst){
-        
-        inst.argvalues = [];
-        _.each(inst.argexpr, function(expr,index,list) {
-            inst.argvalues.push(expr.evaluate(parentContext));
-        });
+Child.prototype.evaluate = function(parentContext, inst){
 
-        var context = Context.newContext(parentContext, [], [], inst);
+    inst.argvalues = [];
+    _.each(inst.argexpr, function(expr,index,list) {
+        inst.argvalues.push(expr.evaluate(parentContext));
+    });
 
-        var childIndex = 0;
-        if (inst.argvalues[0] !== undefined){
-            childIndex = inst.argvalues[0];
-        }
+    var context = Context.newContext(parentContext, [], [], inst);
 
-        var evaluatedChildren = [];
+    var childIndex = 0;
+    if (inst.argvalues[0] !== undefined){
+        childIndex = inst.argvalues[0];
+    }
 
-        for (var i = Globals.context_stack.length - 1; i >= 0; i--) {
-            var ctx = Globals.context_stack[i];
+    var evaluatedChildren = [];
 
-            if (ctx.inst_p !== undefined){
-                if (childIndex < ctx.inst_p.children.length) {
+    for (var i = Globals.context_stack.length - 1; i >= 0; i--) {
+        var ctx = Globals.context_stack[i];
 
-                    var childInst = ctx.inst_p.children[childIndex];
+        if (ctx.inst_p !== undefined){
+            if (childIndex < ctx.inst_p.children.length) {
 
-                    _.each(childInst.argexpr, function(expr,index,list) {
-                        childInst.argvalues.push(expr.evaluate(ctx.inst_p.ctx));
-                    });
+                var childInst = ctx.inst_p.children[childIndex];
 
-                    var childAdaptor = this.factory.getAdaptor(childInst);
-                    evaluatedChildren.push(childAdaptor.evaluate(ctx.inst_p.ctx, childInst));
+                _.each(childInst.argexpr, function(expr,index,list) {
+                    childInst.argvalues.push(expr.evaluate(ctx.inst_p.ctx));
+                });
 
-                }
-                return evaluatedChildren;
+                var childAdaptor = this.factory.getAdaptor(childInst);
+                evaluatedChildren.push(childAdaptor.evaluate(ctx.inst_p.ctx, childInst));
+
             }
-            ctx = ctx.parentContext;
-        };
-        
-        return undefined;
+            return evaluatedChildren;
+        }
+        ctx = ctx.parentContext;
     };
 
-    return Child;
+    return undefined;
+};
 
-});
+module.exports =  Child

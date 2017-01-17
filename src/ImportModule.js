@@ -1,36 +1,34 @@
-define("ImportModule", ["Globals", "Context", "StlDecoder"], function(Globals, Context, StlDecoder){
+var Context = require('./Context')
+var Globals = require('./Globals')
+var StlDecoder = require('./StlDecoder')
 
-	function Import(factory){
-		this.factory = factory;
-    };
+function Import (factory) {
+  this.factory = factory
+}
 
-    Import.prototype.evaluate = function(parentContext, inst){
-        
-        var context = new Context(parentContext);
+Import.prototype.evaluate = function (parentContext, inst) {
+  var context = new Context(parentContext)
 
-        var argnames = ["file", "filename", "convexity"];
-        var argexpr = [];
+  var argnames = ['file', 'filename', 'convexity']
+  var argexpr = []
 
-        context.args(argnames, argexpr, inst.argnames, inst.argvalues);
-        
-        var filename = Context.contextVariableLookup(context, "file", null)||Context.contextVariableLookup(context, "filename", null);
+  context.args(argnames, argexpr, inst.argnames, inst.argvalues)
 
-        var convexity = Context.contextVariableLookup(context, "convexity", 5);
+  var filename = Context.contextVariableLookup(context, 'file', null) || Context.contextVariableLookup(context, 'filename', null)
 
-        var importCache = Context.contextVariableLookup(context, "importCache", {});
+  var convexity = Context.contextVariableLookup(context, 'convexity', 5)
 
-        var fileContents = importCache[filename];
+  var importCache = Context.contextVariableLookup(context, 'importCache', {})
 
-        if (fileContents !== undefined){
+  var fileContents = importCache[filename]
 
-            var stlDecoder = new StlDecoder(atob(fileContents));
-            stlDecoder.decode();
-            return stlDecoder.getCSGString();
-        }
+  if (fileContents !== undefined) {
+    var stlDecoder = new StlDecoder(atob(fileContents))
+    stlDecoder.decode()
+    return stlDecoder.getCSGString()
+  }
 
-        return undefined;
-    };
+  return undefined
+}
 
-    return Import;
-
-});
+module.Exports = Import

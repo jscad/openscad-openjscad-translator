@@ -1,67 +1,43 @@
-var requirejs = require('requirejs');
+const assert = require('assert')
+const check = require('./helpers').check
+const filedir = 'transformations/'
 
-requirejs.config({
-    baseUrl: '../src',
-    paths: {
-        lib: '../lib'
-    },
-    nodeRequire: require
-});
+exports['test scale'] = function () {
+  check(filedir, 'scaleEx1')
+  check(filedir, 'scaleEx2')
+}
 
-requirejs(["fs", "assert", "openscad-parser", "Globals", "openscad-parser-support", "lib/underscore"], 
-    function(fs, assert, parser, Globals, parser_support) {
+exports['test rotate'] = function () {
+  check(filedir, 'rotateEx1')
+  check(filedir, 'rotateEx2')
+}
 
-    var filedir = "transformations/";
+exports['test translate'] = function () {
+  check(filedir, 'translateEx1')
+}
 
-    function parse(s) {
-        return parser.parse(s);
-    }
+exports['test mirror'] = function () {
+  check(filedir, 'mirrorEx1')
+}
 
-    function check(testFileName) {
-        var test = fs.readFileSync(filedir+testFileName+".scad", "utf8");
-        var expected = fs.readFileSync(filedir+testFileName+".jscad", "utf8").replace(/\n/g,'');
-        var actual = parse(test).lines.join('').replace(/\n/g,'');
-        assert.equal(actual, expected, console.log(testFileName));
-    }
+exports['test multmatrix'] = function () {
+  check(filedir, 'multmatrixEx1')
+  check(filedir, 'multmatrixEx2')
+}
 
-    exports["test scale"] = function() {
-        check("scaleEx1");
-        check("scaleEx2");
-    }
+exports['test color'] = function () {
+  check(filedir, 'colorEx1')
+  check(filedir, 'colorEx1')
+}
 
-    exports["test rotate"] = function() {
-        check("rotateEx1");
-        check("rotateEx2");
-    }
+exports['test minkowski'] = function () {
+  // todo
+  assert.ok(false)
+}
 
-    exports["test translate"] = function() {
-        check("translateEx1");
-    }
+exports['test hull'] = function () {
+  // todo
+  assert.ok(false)
+}
 
-    exports["test mirror"] = function() {
-        check("mirrorEx1");
-    }
-
-    exports["test multmatrix"] = function() {
-        check("multmatrixEx1");
-        check("multmatrixEx2");
-    }
-
-    exports["test color"] = function() {
-        check("colorEx1");
-        check("colorEx1");
-    }
-
-    exports["test minkowski"] = function() {
-        // todo
-        assert.ok(false);
-    }
-
-    exports["test hull"] = function() {
-        // todo
-        assert.ok(false);
-    }
-
-    if(module === require.main) require("test").run(exports);
-
-});
+if (module === require.main) require('test').run(exports)

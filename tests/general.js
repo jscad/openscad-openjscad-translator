@@ -1,11 +1,6 @@
 var assert = require("assert");
 var parser = require("../src/openscad-parser").parser;
 
-
-function parse(s) {
-    return parser.parse(s);
-}
-
 function check(test, expected) {
     assert.equal(parse(test), expected);
 }
@@ -85,15 +80,15 @@ exports["test Variables are set at compile-time, not run-time"] = function() {
   via: http://stackoverflow.com/a/9624028/188624
 */
 var install_hook_to = function(obj) {
-    
+
     if (obj.hook || obj.unhook) {
         throw new Error('Object already has properties hook and/or unhook');
     }
-    
+
     obj.hook = function(_meth_name, _fn, _is_async) {
         var self = this,
             meth_ref;
-        
+
         // Make sure method exists
         if (! (Object.prototype.toString.call(self[_meth_name]) === '[object Function]')) {
             throw new Error('Invalid method: ' + _meth_name);
@@ -110,7 +105,7 @@ var install_hook_to = function(obj) {
         self[_meth_name] = function() {
             var args = Array.prototype.slice.call(arguments);
 
-            // Our hook should take the same number of arguments 
+            // Our hook should take the same number of arguments
             // as the original method so we must fill with undefined
             // optional args not provided in the call
             while (args.length < meth_ref.length) {
@@ -120,7 +115,7 @@ var install_hook_to = function(obj) {
             // Last argument is always original method call
             args.push(function() {
                 var args = arguments;
-                
+
                 if (_is_async) {
                     process.nextTick(function() {
                         meth_ref.apply(self, args);
@@ -133,7 +128,7 @@ var install_hook_to = function(obj) {
             _fn.apply(self, args);
         };
     };
-    
+
     obj.unhook = function(_meth_name) {
         var self = this,
             ref  = self.unhook.methods[_meth_name];
@@ -150,6 +145,3 @@ var install_hook_to = function(obj) {
 };
 
 if(module === require.main) require("test").run(exports);
-
-
-
