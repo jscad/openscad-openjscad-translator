@@ -22214,7 +22214,7 @@ if (paths.length > 1){
 
   var holes = [];
 
-  _.each(_.rest(paths), function(shape) {
+  _.each(_.tail(paths), function(shape) {
       pointsMap = [];
       _.each(shape, function(x) {
           pointsMap.push(points[x]);
