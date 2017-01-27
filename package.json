@@ -1,5 +1,5 @@
 {
-  "name": "openscad-openjscad-translator",
+  "name": "@jscad/openscad-openjscad-translator",
   "version": "0.0.9",
   "description": "Translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).",
   "main": "src/parserWrapper.js",
