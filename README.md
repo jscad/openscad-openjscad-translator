@@ -1,5 +1,11 @@
 ## openscad-openjscad-translator
 
+[![GitHub version](https://badge.fury.io/gh/jscad%2Fopenscad-openjscad-translator.svg)](https://badge.fury.io/gh/jscad%2Fopenscad-openjscad-translator)
+[![experimental](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+[![Build Status](https://travis-ci.org/jscad/openscad-openjscad-translator.svg)](https://travis-ci.org/jscad/openscad-openjscad-translator)
+[![Dependency Status](https://david-dm.org/jscad/openscad-openjscad-translator.svg)](https://david-dm.org/jscad/openscad-openjscad-translator)
+[![devDependency Status](https://david-dm.org/jscad/openscad-openjscad-translator/dev-status.svg)](https://david-dm.org/jscad/openscad-openjscad-translator#info=devDependencies)
+
 ## OpenSCAD to OpenJSCAD Translator
 
 > Translates OpenSCAD syntax into OpenJsCAD syntax
