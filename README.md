@@ -1,22 +1,28 @@
-# openscad-openjscad-translator
+## openscad-openjscad-translator
 
-**This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
+## OpenSCAD to OpenJSCAD Translator
+
+> Translates OpenSCAD syntax into OpenJsCAD syntax
+
+## Overview
 
 Node module that translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).
 
-See: https://npmjs.org/package/openscad-openjscad-translator
-
+**_IMPORTANT NOTE:_ This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
 
 ## Table of Contents
 
 - [Installation](#install)
 - [Usage](#usage)
 - [Build](#build)
+- [Contribute](#contribute)
 - [License](#license)
 
 ## Install
 
-	npm install openscad-openjscad-translator
+```
+npm install @jscad/openscad-openjscad-translator
+```
 
 >NOTE: for now we need to use a temporary build of the sylvester (node-sylvester)
 library since the one on NPM has a missing flag which makes use with browserify impossible:
@@ -26,24 +32,26 @@ see : [here](https://github.com/NaturalNode/node-sylvester/issues/9) and [here](
 
 ### Node
 
-    var parser = require('openscad-openjscad-translator')
-    var fs = require('fs')
+```javascript
+  var parser = require('openscad-openjscad-translator')
+  var fs = require('fs')
 
-    var openSCADText = fs.readFileSync("test.scad", "UTF8")
-    var openJSCADResult = parser.parse(openSCADText)
+  var openSCADText = fs.readFileSync("test.scad", "UTF8")
+  var openJSCADResult = parser.parse(openSCADText)
 
-    console.log(openJSCADResult)
+  console.log(openJSCADResult)
+```
 
 ### Web
 
-    ...
-    <script src="../dist/web-built.js"></script>
+```html
+  <script src="../dist/web-built.js"></script>
 
-    <script type="text/javascript">
-		var text = document.getElementById('txt').innerText
-		console.log(openscadOpenJscadParser.parse(text))
-    </script>
-    ...
+  <script type="text/javascript">
+    var text = document.getElementById('txt').innerText
+    console.log(openscadOpenJscadParser.parse(text))
+  </script>
+```
 
 Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOpenJscadParser** object will be available.  This has two attributes:
 * **parse** - a function which accepts OpenSCAD text and returns OpenJsCAD text.
@@ -53,27 +61,36 @@ Include ```lib/underscore.js``` and ```dist/web-built.js``` and the **openscadOp
 
 ### Web
 
-	not minified :
-
-		npm run build
-
-	minified:
-
-		npm run build-min
-
-
+not minified :
+```
+npm run build
+```
+minified:
+```
+npm run build-min
+```
 Creates scripts in the ```dist``` folder.
-
 
 ## Develop
 
 ### Jison
 
-    npm run build-parser
-
+```
+npm run build-parser
+```
 Compiles the Jison lexer/parser to an AMD module in the ```src``` folder called ```openscad-parser.js```.
 
+## Contribute
+
+Pull Requests are accepted.
+
+Please see the guidelines [here](https://github.com/jscad/openscad-openjscad-translator/blob/master/CONTRIBUTING.md)
+
+Small Note: If editing this README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
-As this work is predominantly a port of the OpenSCAD it is therefore also released under the General Public License version 2.
+[The MIT License (MIT)](https://github.com/jscad/csg.js/blob/master/LICENSE)
+(unless specified otherwise)
+
+_NOTE: OpenSCAD and OpenSCAD API are released under the General Public License version 2._
