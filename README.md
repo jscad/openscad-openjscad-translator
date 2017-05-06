@@ -16,6 +16,12 @@ Node module that translates OpenSCAD syntax (http://www.openscad.org/) into Open
 
 **_IMPORTANT NOTE:_ This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
 
+The following functions are not implemented (neither in csg.js nor in OpenJSCAD),
+and contributions are welcome !
+- [ ] [assign statement](https://github.com/jscad/openscad-openjscad-translator/issues/12)
+- [ ] [minkowski](https://github.com/jscad/openscad-openjscad-translator/issues/11)
+- [ ] [hull](https://github.com/jscad/openscad-openjscad-translator/issues/13)
+
 ## Table of Contents
 
 - [Installation](#install)
