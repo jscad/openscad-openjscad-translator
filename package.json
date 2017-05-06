@@ -12,9 +12,9 @@
     "build-min": "browserify src/parserWrapper.js --ignore lapack  --standalone openscadOpenJscadParser | uglifyjs -c > dist/web-built.min.js",
     "build-all": "npm run build && npm run build-min",
     "build-parser": "node src/parserMaker",
-    "release-patch": "git checkout master; npm version patch && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags ",
-    "release-minor": "git checkout master; npm version minor && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags ",
-    "release-major": "git checkout master; npm version major && npm run build-all; git commit -a -m 'chore(dist): built dist/'; git push origin master --tags "
+    "release-patch": "git checkout master && npm run build-all; npm version patch ; git commit -a -m 'chore(dist): built release'; git push origin master --tags ",
+    "release-minor": "git checkout master && npm run build-all; npm version minor ; git commit -a -m 'chore(dist): built release'; git push origin master --tags ",
+    "release-major": "git checkout master && npm run build-all; npm version major ; git commit -a -m 'chore(dist): built release'; git push origin master --tags "
   },
   "directories": {
     "test": "tests"
@@ -45,5 +45,5 @@
     "email": "contact@garyhodgson.com",
     "url": "http://garyhodgson.com"
   },
-  "license": "GPLv3"
+  "license": "MIT"
 }

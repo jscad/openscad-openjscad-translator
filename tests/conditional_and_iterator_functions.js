@@ -19,8 +19,9 @@ exports['test if statement'] = function () {
   check(filedir, 'ifStatementEx1')
 }
 
+/*
 exports['test assign statement'] = function () {
-  assert.fail('todo ')
-}
+  assert.todo('todo ')
+}*/
 
 if (module === require.main) require('test').run(exports)

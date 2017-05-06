@@ -1,5 +1,11 @@
 ## openscad-openjscad-translator
 
+[![GitHub version](https://badge.fury.io/gh/jscad%2Fopenscad-openjscad-translator.svg)](https://badge.fury.io/gh/jscad%2Fopenscad-openjscad-translator)
+[![experimental](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+[![Build Status](https://travis-ci.org/jscad/openscad-openjscad-translator.svg)](https://travis-ci.org/jscad/openscad-openjscad-translator)
+[![Dependency Status](https://david-dm.org/jscad/openscad-openjscad-translator.svg)](https://david-dm.org/jscad/openscad-openjscad-translator)
+[![devDependency Status](https://david-dm.org/jscad/openscad-openjscad-translator/dev-status.svg)](https://david-dm.org/jscad/openscad-openjscad-translator#info=devDependencies)
+
 ## OpenSCAD to OpenJSCAD Translator
 
 > Translates OpenSCAD syntax into OpenJsCAD syntax
@@ -9,6 +15,12 @@
 Node module that translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).
 
 **_IMPORTANT NOTE:_ This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
+
+The following functions are not implemented (neither in csg.js nor in OpenJSCAD),
+and contributions are welcome !
+- [ ] [assign statement](https://github.com/jscad/openscad-openjscad-translator/issues/12)
+- [ ] [minkowski](https://github.com/jscad/openscad-openjscad-translator/issues/11)
+- [ ] [hull](https://github.com/jscad/openscad-openjscad-translator/issues/13)
 
 ## Table of Contents
 
