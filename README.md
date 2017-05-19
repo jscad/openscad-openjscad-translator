@@ -45,7 +45,7 @@ see : [here](https://github.com/NaturalNode/node-sylvester/issues/9) and [here](
 ### Node
 
 ```javascript
-  var parser = require('openscad-openjscad-translator')
+  var parser = require('@jscad/openscad-openjscad-translator')
   var fs = require('fs')
 
   var openSCADText = fs.readFileSync("test.scad", "UTF8")
