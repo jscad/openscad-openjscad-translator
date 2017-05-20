@@ -12,7 +12,7 @@
 
 ## Overview
 
-Node module that translates OpenSCAD syntax (http://www.openscad.org/) into OpenJsCAD syntax (http://joostn.github.com/OpenJsCad/).
+Node module that translates [OpenSCAD syntax](http://www.openscad.org/) into [OpenJSCAD syntax](https://github.com/jscad/OpenJSCAD.org/).
 
 **_IMPORTANT NOTE:_ This project is written against an older version of OpenSCAD (v 2011.06) which has now been superseded.**
 
@@ -96,13 +96,13 @@ Compiles the Jison lexer/parser to an AMD module in the ```src``` folder called 
 
 This library is part of the JSCAD Organization, and is maintained by a group of volunteers. We welcome and encourage anyone to pitch in but please take a moment to read the following guidelines.
 
-* If you want to submit a bug report please make sure to follow the [Reporting Issues](https://github.com/jscad/csg.js/wiki/Reporting-Issues) guide. Bug reports are accepted as [Issues](https://github.com/jscad/openscad-openjscad-translator/issues/) via GitHub.
+* If you want to submit a bug report please make sure to follow the [Reporting Issues](https://github.com/jscad/openscad-openjscad-translator/wiki/Reporting-Issues) guide. Bug reports are accepted as [Issues](https://github.com/jscad/openscad-openjscad-translator/issues/) via GitHub.
 
-* If you want to submit a change or a patch, please read the contents below on how to make changes. New contributions are accepted as [Pull Requests](https://github.com/jscad/openscad-openjscad-translator/pulls/) via GithHub.
+* If you want to submit a change or a patch, please see the [Contributing guide](https://github.com/z3dev/openscad-openjscad-translator/blob/master/CONTRIBUTING.md). New contributions are accepted as [Pull Requests](https://github.com/jscad/openscad-openjscad-translator/pulls/) via GithHub.
 
 * We only accept bug reports and pull requests on **GitHub**.
 
-* If you have a question about how to use OpenJSCAD, then please start a conversation at the [OpenJSCAD.org User Group](https://plus.google.com/communities/114958480887231067224). You might find the answer in the [OpenJSCAD.org User Guide](https://github.com/Spiritdude/OpenJSCAD.org/wiki/User-Guide).
+* If you have a question about how to use OpenJSCAD, then please start a conversation at the [OpenJSCAD.org User Group](https://plus.google.com/communities/114958480887231067224). You might find the answer in the [OpenJSCAD.org User Guide](https://en.wikibooks.org/wiki/OpenJSCAD_User_Guide).
 
 * If you have a change or new feature in mind, please start a conversation with the [Core Developers](https://plus.google.com/communities/114958480887231067224) and start contributing changes.
 
@@ -110,7 +110,7 @@ Small Note: If editing this README, please conform to the [standard-readme](http
 
 ## License
 
-[The MIT License (MIT)](https://github.com/jscad/csg.js/blob/master/LICENSE)
+[The MIT License (MIT)](https://github.com/jscad/openscad-openjscad-translator/blob/master/LICENSE)
 (unless specified otherwise)
 
 _NOTE: OpenSCAD and OpenSCAD API are released under the General Public License version 2._
