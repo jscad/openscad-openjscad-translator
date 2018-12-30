@@ -1,5 +1,5 @@
 var Range = require('./Range')
-var Sylvester = require('sylvester')
+var Sylvester = require('@kaosat-dev/sylvester')
 var _ = require('lodash')
 
 
